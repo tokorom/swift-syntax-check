@@ -4,16 +4,16 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-syntax-checker",
+    name: "swift-syntax-check",
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", .branch("0.40200.0")),
     ],
     targets: [
         .target(
-            name: "swift-syntax-checker",
+            name: "swift-syntax-check",
             dependencies: ["SwiftSyntax"]),
         .testTarget(
-            name: "swift-syntax-checkerTests",
-            dependencies: ["swift-syntax-checker"]),
+            name: "swift-syntax-checkTests",
+            dependencies: ["swift-syntax-check"]),
     ]
 )

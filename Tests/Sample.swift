@@ -7,6 +7,6 @@
 import Foundation
 
 class Sample {
-    let arg1 = 2
+    let arg1 = .2
     let arg2 = 3_000
 }

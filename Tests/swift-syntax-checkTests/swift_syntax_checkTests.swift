@@ -1,7 +1,7 @@
 import XCTest
 import class Foundation.Bundle
 
-final class swift_syntax_checkerTests: XCTestCase {
+final class swift_syntax_checkTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -12,7 +12,7 @@ final class swift_syntax_checkerTests: XCTestCase {
             return
         }
 
-        let fooBinary = productsDirectory.appendingPathComponent("swift_syntax_checker")
+        let fooBinary = productsDirectory.appendingPathComponent("swift_syntax_check")
 
         let process = Process()
         process.executableURL = fooBinary
