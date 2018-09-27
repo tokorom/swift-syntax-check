@@ -1,34 +1,67 @@
 import Foundation
-import SwiftSyntax
 
-/// AddOneToIntegerLiterals will visit each token in the Syntax tree, and
-/// (if it is an integer literal token) add 1 to the integer and return the
-/// new integer literal token.
-class AddOneToIntegerLiterals: SyntaxRewriter {
-  override func visit(_ token: TokenSyntax) -> Syntax {
-    // Only transform integer literals.
-    guard case .integerLiteral(let text) = token.tokenKind else {
-      return token
+struct Log {
+    private static let stdout = FileHandle.standardOutput
+    private static let stderr = FileHandle.standardError
+
+    private static let ln = "\n".data(using: .utf8)!
+
+    static func print(_ object: Any) {
+        guard let data = "\(object)".data(using: .utf8) else {
+            return
+        }
+        stdout.write(data)
+        stdout.write(ln)
     }
 
-    // Remove underscores from the original text.
-    let integerText = String(text.filter { ("0"..."9").contains($0) })
-
-    // Parse out the integer.
-    let int = Int(integerText)!
-
-    // Return a new integer literal token with `int + 1` as its text.
-    return token.withKind(.integerLiteral("\(int + 1)"))
-  }
+    static func error(_ message: String) {
+        guard let data = message.data(using: .utf8) else {
+            return
+        }
+        stderr.write(data)
+        stderr.write(ln)
+    }
 }
 
-let file = CommandLine.arguments[1]
-let url = URL(fileURLWithPath: file)
-let sourceFile = try SyntaxTreeParser.parse(url)
+class SwiftCommand {
+    let process: Process
 
-print(sourceFile)
+    init(commandPath: String, targetFilePath: String) {
+        let process = Process()
 
-/*
-let incremented = AddOneToIntegerLiterals().visit(sourceFile)
-print(incremented)
-*/
+        process.launchPath = commandPath
+        process.arguments = [targetFilePath]
+
+        self.process = process
+    }
+
+    func run() {
+        process.launch()
+    }
+}
+
+class SwiftRunner {
+    var commandPath: String = "/usr/bin/swift"
+
+    func run(with filePath: String) {
+        let command = SwiftCommand(
+            commandPath: commandPath,
+            targetFilePath: filePath
+        )
+        command.run()
+    }
+}
+
+// main
+
+func main() {
+    let args = CommandLine.arguments.dropFirst()
+    for targeFile in args {
+        let runner = SwiftRunner()
+        runner.run(with: targeFile)
+    }
+}
+
+main()
+
+exit(0)

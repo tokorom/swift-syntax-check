@@ -11,6 +11,6 @@ echo -e "\n"
 
 echo -e "${CYAN}#### RUN ####${NC}"
 
-./main Tests/Sample.swift
+./main Tests/Sample.swift dummy.txt
 
 echo -e "\n"
