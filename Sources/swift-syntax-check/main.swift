@@ -1,54 +1,73 @@
 import Foundation
 
-struct Log {
-    private static let stdout = FileHandle.standardOutput
-    private static let stderr = FileHandle.standardError
-
-    private static let ln = "\n".data(using: .utf8)!
-
-    static func print(_ object: Any) {
-        guard let data = "\(object)".data(using: .utf8) else {
-            return
-        }
-        stdout.write(data)
-        stdout.write(ln)
-    }
-
-    static func error(_ message: String) {
-        guard let data = message.data(using: .utf8) else {
-            return
-        }
-        stderr.write(data)
-        stderr.write(ln)
-    }
-}
-
 class SwiftCommand {
     let process: Process
+    let pipe = Pipe()
 
-    init(commandPath: String, targetFilePath: String) {
+    init(shPath: String, swiftCommand: String, targetFilePath: String) {
         let process = Process()
 
-        process.launchPath = commandPath
-        process.arguments = [targetFilePath]
+        process.launchPath = shPath
+        process.arguments = ["-c", "\(swiftCommand) \(targetFilePath)"]
+
+        process.standardOutput = pipe
+        process.standardError = pipe
 
         self.process = process
     }
 
-    func run() {
+    func run() -> [String] {
         process.launch()
+
+        let reader = pipe.fileHandleForReading
+        var output = ""
+
+        while true {
+            let data = reader.availableData
+
+            guard data.count > 0 else {
+                break
+            }
+
+            guard let got = String(data: data, encoding: .utf8) else {
+                continue
+            }
+
+            output += got
+        }
+
+        return output.split(separator: "\n").map { String($0) }
+    }
+
+    func write(_ lines: [String]) {
+        let writer = FileHandle.standardOutput
+
+        let output = lines.joined(separator: "\n")
+
+        guard let data = output.data(using: .utf8) else {
+            return
+        }
+
+        writer.write(data)
     }
 }
 
-class SwiftRunner {
-    var commandPath: String = "/usr/bin/swift"
+class SwiftSyntaxCheck {
+    var shPath = "/bin/sh"
+    var swiftCommand = "swift"
 
     func run(with filePath: String) {
         let command = SwiftCommand(
-            commandPath: commandPath,
+            shPath: shPath,
+            swiftCommand: swiftCommand,
             targetFilePath: filePath
         )
-        command.run()
+
+        let lines = command.run()
+
+        // ここでlinesを間引く
+
+        command.write(lines)
     }
 }
 
@@ -57,7 +76,7 @@ class SwiftRunner {
 func main() {
     let args = CommandLine.arguments.dropFirst()
     for targeFile in args {
-        let runner = SwiftRunner()
+        let runner = SwiftSyntaxCheck()
         runner.run(with: targeFile)
     }
 }
