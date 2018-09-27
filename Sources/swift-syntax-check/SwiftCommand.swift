@@ -7,8 +7,8 @@
 import Foundation
 
 struct SwiftCommand {
-    let process: Process
-    let pipe = Pipe()
+    private let process: Process
+    private let pipe = Pipe()
 
     init(shPath: String, swiftCommand: String, targetFilePath: String) {
         let process = Process()

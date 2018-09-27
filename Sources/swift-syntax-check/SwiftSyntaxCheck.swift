@@ -7,12 +7,12 @@
 import Foundation
 
 class SwiftSyntaxCheck {
-    let targetFilePath: String
-
     var shPath = "/bin/sh"
     var swiftCommand = "swift"
 
-    lazy var command: SwiftCommand = SwiftCommand(
+    private let targetFilePath: String
+
+    private lazy var command: SwiftCommand = SwiftCommand(
         shPath: shPath,
         swiftCommand: swiftCommand,
         targetFilePath: targetFilePath
@@ -26,7 +26,8 @@ class SwiftSyntaxCheck {
         let lines = command.run()
 
         // ここでlinesを間引く
+        let reduced = LineReducer().reduce(lines)
 
-        command.write(lines)
+        command.write(reduced)
     }
 }
