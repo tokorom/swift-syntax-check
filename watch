@@ -3,10 +3,10 @@
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-TARGET='Sources/**/*.swift'
+TARGET_DIR='Sources'
 
 echo -e "${CYAN}START${NC}: fswatch ${TARGET}"
 
-fswatch ${TARGET} | xargs -I{} ./build_and_run
+fswatch -e '.*' -i '\.swift$' ${TARGET_DIR} | xargs -I{} ./build_and_run
 
 echo -e "\n"
