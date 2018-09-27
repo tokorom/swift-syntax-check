@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+echo -e "${CYAN}#### BUILD ####${NC}"
+
+swift build
+
+echo -e "\n"
+
+echo -e "${CYAN}#### RUN ####${NC}"
+
+./main Tests/Sample.swift
+
+echo -e "\n"
