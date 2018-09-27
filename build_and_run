@@ -11,6 +11,6 @@ echo -e "\n"
 
 echo -e "${CYAN}#### RUN ####${NC}"
 
-./main Tests/Sample.swift
+.build/debug/swift-syntax-check Tests/Sample.swift
 
 echo -e "\n"
