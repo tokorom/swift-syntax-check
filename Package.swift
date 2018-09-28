@@ -8,10 +8,16 @@ let package = Package(
     dependencies: [],
     targets: [
         .target(
+            name: "Main",
+            dependencies: ["SwiftSyntaxCheck"]
+        ),
+        .target(
             name: "SwiftSyntaxCheck",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "SwiftSyntaxCheckTests",
-            dependencies: ["SwiftSyntaxCheck"]),
+            dependencies: ["SwiftSyntaxCheck"]
+        ),
     ]
 )
