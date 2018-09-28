@@ -22,12 +22,32 @@ public class SwiftSyntaxCheck {
         self.targetFilePath = targetFilePath
     }
 
-    public func run() {
+    public func start() {
         let lines = command.run()
 
-        // ここでlinesを間引く
         let reduced = LineReducer().reduce(lines)
 
-        command.write(reduced)
+        for line in reduced {
+            stdout.print(line)
+        }
+    }
+}
+
+// MARK: - Runner
+
+extension SwiftSyntaxCheck {
+    public struct Runner {
+        private let option: Option
+
+        public init(_ option: Option) {
+            self.option = option
+        }
+
+        public func run() {
+            for targetFile in option.filePaths {
+                let check = SwiftSyntaxCheck(for: targetFile)
+                check.start()
+            }
+        }
     }
 }

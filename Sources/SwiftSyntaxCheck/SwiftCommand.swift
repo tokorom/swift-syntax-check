@@ -44,16 +44,4 @@ struct SwiftCommand {
 
         return output.split(separator: "\n").map { String($0) }
     }
-
-    func write(_ lines: [String]) {
-        let writer = FileHandle.standardOutput
-
-        let output = lines.joined(separator: "\n")
-
-        guard let data = output.data(using: .utf8) else {
-            return
-        }
-
-        writer.write(data)
-    }
 }

@@ -5,11 +5,13 @@ import PackageDescription
 
 let package = Package(
     name: "swift-syntax-check",
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-package-manager.git", from: "0.2.0")
+    ],
     targets: [
         .target(
             name: "Main",
-            dependencies: ["SwiftSyntaxCheck"]
+            dependencies: ["SwiftSyntaxCheck", "Utility"]
         ),
         .target(
             name: "SwiftSyntaxCheck",

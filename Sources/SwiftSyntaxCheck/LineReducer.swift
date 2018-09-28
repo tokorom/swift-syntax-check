@@ -15,7 +15,7 @@ public class LineReducer {
         do {
             firstLineRegex = try NSRegularExpression(pattern: "^[^:]+:[0-9]+:[0-9]+: ")
         } catch let error {
-            Log.error(error)
+            stderr.error(error)
             return []
         }
 
@@ -42,7 +42,7 @@ public class LineReducer {
                         return false
                     }
                 } catch let error {
-                    Log.error(error)
+                    stderr.error(error)
                 }
                 continue
             }
