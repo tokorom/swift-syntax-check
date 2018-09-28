@@ -19,7 +19,7 @@ public class LineReducer {
             return []
         }
 
-        var inSkipMode = true
+        var inSkipMode = false
 
         return lines.filter { line in
             let range = NSRange(location: 0, length: line.count)

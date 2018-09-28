@@ -23,6 +23,18 @@ binder.bindArray(
     }
 )
 
+binder.bind(
+    option: parser.add(
+        option: "--swiftpath",
+        shortName: "-s",
+        kind: String.self,
+        usage: "Path to swift command"
+    ),
+    to: { option, swiftPath in
+        option.swiftPath = swiftPath
+    }
+)
+
 do {
     let result =  try parser.parse(Array(CommandLine.arguments.dropFirst()))
 

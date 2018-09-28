@@ -8,13 +8,13 @@ import Foundation
 
 public class SwiftSyntaxCheck {
     public var shPath = "/bin/sh"
-    public var swiftCommand = "swift"
+    public var swiftPath = "swift"
 
     private let targetFilePath: String
 
     private lazy var command: SwiftCommand = SwiftCommand(
         shPath: shPath,
-        swiftCommand: swiftCommand,
+        swiftPath: swiftPath,
         targetFilePath: targetFilePath
     )
 
@@ -46,6 +46,11 @@ extension SwiftSyntaxCheck {
         public func run() {
             for targetFile in option.filePaths {
                 let check = SwiftSyntaxCheck(for: targetFile)
+
+                if let swiftPath = option.swiftPath {
+                    check.swiftPath = swiftPath
+                }
+
                 check.start()
             }
         }

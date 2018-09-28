@@ -10,11 +10,11 @@ struct SwiftCommand {
     private let process: Process
     private let pipe = Pipe()
 
-    init(shPath: String, swiftCommand: String, targetFilePath: String) {
+    init(shPath: String, swiftPath: String, targetFilePath: String) {
         let process = Process()
 
         process.launchPath = shPath
-        process.arguments = ["-c", "\(swiftCommand) \(targetFilePath)"]
+        process.arguments = ["-c", "\(swiftPath) \(targetFilePath)"]
 
         process.standardOutput = pipe
         process.standardError = pipe

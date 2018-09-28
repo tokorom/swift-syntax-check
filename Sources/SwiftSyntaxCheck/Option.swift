@@ -8,6 +8,7 @@ import Foundation
 
 public struct Option {
     public var filePaths: [String] = []
+    public var swiftPath: String?
 
     public init() {
     }
