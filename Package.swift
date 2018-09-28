@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftSyntaxCheck",
+    name: "swift-syntax-check",
     dependencies: [],
     targets: [
         .target(

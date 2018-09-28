@@ -3,7 +3,7 @@
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-BIN='.build/debug/swift-syntax-check'
+BIN='.build/debug/Main'
 SAMPLE='Tests/Sample.swift'
 
 echo -e "${CYAN}#### BUILD ####${NC}"
