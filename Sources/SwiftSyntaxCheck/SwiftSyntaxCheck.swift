@@ -6,9 +6,9 @@
 
 import Foundation
 
-class SwiftSyntaxCheck {
-    var shPath = "/bin/sh"
-    var swiftCommand = "swift"
+public class SwiftSyntaxCheck {
+    public var shPath = "/bin/sh"
+    public var swiftCommand = "swift"
 
     private let targetFilePath: String
 
@@ -18,11 +18,11 @@ class SwiftSyntaxCheck {
         targetFilePath: targetFilePath
     )
 
-    init(for targetFilePath: String) {
+    public init(for targetFilePath: String) {
         self.targetFilePath = targetFilePath
     }
 
-    func run() {
+    public func run() {
         let lines = command.run()
 
         // ここでlinesを間引く

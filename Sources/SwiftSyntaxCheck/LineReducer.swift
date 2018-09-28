@@ -6,8 +6,11 @@
 
 import Foundation
 
-class LineReducer {
-    func reduce(_ lines: [String]) -> [String] {
+public class LineReducer {
+    public init() {
+    }
+
+    public func reduce(_ lines: [String]) -> [String] {
         return lines
     }
 }

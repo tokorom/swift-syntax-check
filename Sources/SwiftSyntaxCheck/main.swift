@@ -2,14 +2,13 @@ import Foundation
 
 // main
 
-func main() {
-    let args = CommandLine.arguments.dropFirst()
+func main(args: [String]) {
     for targetFile in args {
         let runner = SwiftSyntaxCheck(for: targetFile)
         runner.run()
     }
 }
 
-main()
+main(args: Array(CommandLine.arguments.dropFirst()))
 
 exit(0)

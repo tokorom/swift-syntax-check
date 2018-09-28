@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-syntax-check",
+    name: "SwiftSyntaxCheck",
     dependencies: [],
     targets: [
         .target(
-            name: "swift-syntax-check",
+            name: "SwiftSyntaxCheck",
             dependencies: []),
         .testTarget(
-            name: "swift-syntax-checkTests",
-            dependencies: ["swift-syntax-check"]),
+            name: "SwiftSyntaxCheckTests",
+            dependencies: ["SwiftSyntaxCheck"]),
     ]
 )
