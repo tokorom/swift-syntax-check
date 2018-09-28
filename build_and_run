@@ -3,14 +3,21 @@
 CYAN='\033[0;36m'
 NC='\033[0m'
 
+BIN='.build/debug/swift-syntax-check'
+SAMPLE='Tests/Sample.swift'
+
 echo -e "${CYAN}#### BUILD ####${NC}"
 
-swift build
+if (which xcpretty &>/dev/null) then
+  swift build 2>&1 | xcpretty
+else
+  swift build
+fi
 
 echo -e "\n"
 
 echo -e "${CYAN}#### RUN ####${NC}"
 
-.build/debug/swift-syntax-check Tests/Sample.swift
+${BIN} ${SAMPLE}
 
 echo -e "\n"

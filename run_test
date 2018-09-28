@@ -1,0 +1,12 @@
+#!/bin/bash
+
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+echo -e "${CYAN}#### TEST ####${NC}"
+
+if (which xcpretty &>/dev/null) then
+  swift test 2>&1 | xcpretty
+else
+  swift test
+fi

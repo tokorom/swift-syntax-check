@@ -3,10 +3,20 @@
 CYAN='\033[0;36m'
 NC='\033[0m'
 
-TARGET_DIR='Sources'
+TARGET_DIR='.'
+
+test_or_run() {
+  local target=$1
+  if [[ "${target}" =~ "/Tests/" ]]; then
+    ./run_test
+  else
+    ./build_and_run
+  fi
+}
 
 echo -e "${CYAN}START${NC}: fswatch ${TARGET}"
 
-fswatch -e '.*' -i '\.swift$' ${TARGET_DIR} | xargs -I{} ./build_and_run
+export -f test_or_run
+fswatch -e '.*' -i '\.swift$' ${TARGET_DIR} | xargs -I{} bash -c "test_or_run {}"
 
 echo -e "\n"
