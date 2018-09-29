@@ -34,7 +34,6 @@ enum IgnorePattern: String, CaseIterable {
     case cannotUseModule = " cannot use module "
     case cannotBeApplied = " cannot be applied "
     case requiresACotextualType = " requires a contextual type$"
-    case cannotConvertValue = " cannot convert value "
     case cannotMatchValues = " cannot match values "
     case cannotBeConstructed = " cannot be constructed "
     case requiresInitializer = " requires initializer "
@@ -44,6 +43,7 @@ enum IgnorePattern: String, CaseIterable {
     case mustHave = " must have "
 
     /* optionals
+    case cannotConvertValue = " cannot convert value "
     case wasDeprecated = " was deprecated "
     case propertiesAreImplicitly = " properties are implicitly "
     case platformConditionAppears = " platform condition appears "
